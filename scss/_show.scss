@@ -1,0 +1,19 @@
+.show-chatbot {
+  .chatbot {
+  transform: scale(1);
+  opacity: 1;
+  pointer-events: auto;
+  }
+
+  .chatbot-toggler {
+    span:first-child {
+      opacity: 0;
+    }
+  }
+
+  .chatbot-toggler {
+    span:last-child {
+      opacity: 1;
+    }
+  }
+}
