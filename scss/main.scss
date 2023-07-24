@@ -32,31 +32,89 @@ body {
     }
   }
 
+  .chat-input {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    display: flex;
+    gap: 5px;
+    background: #fff;
+    padding: 5px 20px;
+    border-top: 1px solid #ccc;
+
+    text-area {
+      height: 55px;
+      width: 100%;
+      border: none;
+      outline: none;
+      font-size: 0.95rem;
+      resize: none;
+      padding: 16px 15px 16px 0;
+
+      &:valid ~ span {
+        visibility: visible;
+      }
+    }
+
+    span {
+      align-self: flex-end;
+      height: 55px;
+      line-height: 55px;
+      color:#724ae8;
+      font-size: 1.35rem;
+      cursor: pointer;
+      background: red;
+      visibility: hidden;
+
+    }
+  }
+
   .chatbox {
     height: 510px;
     overflow: auto;
     padding: 15px 20px 70px;
   }
+}
 
-  .chatbox {
-    .chat {
-      display: flex;
+.chatbox {
+  height: 510px;
+  overflow: auto;
+  padding: 15px 20px 70px;
 
-      p {
-        color: #fff;
-        font-size: 0.95rem;
-        padding: 12px 16px;
-        border-radius: 10px 10px 0 10px;
-        background: #724ae8;
-      }
+  .chat {
+    display: flex;
+
+    p {
+      color: #fff;
+      font-size: 0.95rem;
+      padding: 12px 16px;
+      border-radius: 10px 10px 0 10px;
+      background: #724ae8;
+    }
+  }
+
+  .incoming {
+    p {
+      color: #000;
+      background: #f2f2f2;
+      border-radius: 10px 10px 10px 0;
     }
 
-    .incoming {
-      p {
-        color: #000;
-        background: #f2f2f2;
-        border-radius: 10px 10px 0 10px;
-      }
+    span {
+      height: 32px;
+      width: 32px;
+      color: #fff;
+      align-self: flex-start;
+      background: #724ae8;
+      text-align: center;
+      line-height: 32px;
+      border-radius: 4px;
+      margin: 0 10px 7px 0;
     }
+  }
+
+  .outgoing {
+    margin: 20px 0;
+    justify-content: flex-end;
   }
 }
