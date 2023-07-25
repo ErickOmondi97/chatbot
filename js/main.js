@@ -53,8 +53,8 @@ const handleChat = () => {
   setTimeout(() => {
     //Display "Thinking..." text while waiting for response
     const incomingChatLi = createChatLi("Thinking...", "incoming")
-    chatbox.appendChild(createChatLi("Thinking...", "outgoing"));
-    generateResponse()
+    chatbox.appendChild();
+    generateResponse();
   }, 600);
 };
 
