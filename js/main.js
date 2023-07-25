@@ -17,9 +17,9 @@ const createChatLi = (message, className) => {
   return chatLi;
 }
 
-const generateResponse = () => {
+const generateResponse = (incomingChatLi) => {
   const API_URL = "https://api.openai.com/v1/chat/completions";
-  const messageElement = 
+  const messageElement = incomingChatLi.querySelector("p");
 
   //The Properties and message for the API request are defined below:
   const requestOptions = {
@@ -36,9 +36,9 @@ const generateResponse = () => {
 
   //Send POST request to API, get response
   fetch(API_URL, requestOptions).then(res => res.json()).then(data => {
-    console.log(data);
+    messageElement.textContent = data.choices[0].message.content;
   }).catch(error) => {
-    console.log(error);
+    messageElement.textContent = data.choices[0].message.content;
   }
 }
 
@@ -53,8 +53,8 @@ const handleChat = () => {
   setTimeout(() => {
     //Display "Thinking..." text while waiting for response
     const incomingChatLi = createChatLi("Thinking...", "incoming")
-    chatbox.appendChild();
-    generateResponse();
+    chatbox.appendChild(incomingChatLi);
+    generateResponse(incomingChatLi);
   }, 600);
 };
 
