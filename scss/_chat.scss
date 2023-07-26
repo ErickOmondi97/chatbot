@@ -1,3 +1,4 @@
+@import './config';
 .chatbot {
   position: fixed;
   right: 40px;
@@ -7,9 +8,11 @@
   opacity: 0;
   pointer-events: none;
   background: #fff;
+  transform-origin: bottom right;
   border-radius: 15px;
   box-shadow: 0 0 128px 0 rgba(0,0,0,0.1),
               0 32px 64px -48px rgba(0,0,0,0.5);
+  @include transition-ease;
 
   header {
     background: #724ae8;
@@ -65,6 +68,7 @@
     cursor: pointer;
     background: #724ae8;
     border-radius: 50%;
+    @include transition-ease;
 
     span {
       position: absolute;
@@ -81,6 +85,7 @@
     height: 55px;
     width: 100%;
     border: none;
+    max-height: 180px;
     outline: none;
     font-size: 0.95rem;
     resize: none;
@@ -107,17 +112,24 @@
 .chatbox {
   height: 510px;
   overflow: auto;
-  padding: 15px 20px 70px;
+  padding: 15px 20px 100px;
 
   .chat {
     display: flex;
 
     p {
       color: #fff;
+      max-width: 75%;
+      white-space: pre-wrap;
       font-size: 0.95rem;
       padding: 12px 16px;
       border-radius: 10px 10px 0 10px;
       background: #724ae8;
+
+      &.error {
+        color: #721c24;
+        background: #f8d7da;
+      }
     }
   }
 

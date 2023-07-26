@@ -1,20 +1,25 @@
-<<<<<<< HEAD
 const chatInput = document.querySelector(".chat-input text-area");
 
 const sendChatBtn = document.querySelector(".chat-input span");
 
-const chatBox = document.querySelector("chatbox");
+const chatBox = document.querySelector(".chatbox");
+
+const chatbotToggler = document.querySelector(".chatbot-toggler");
+
+const chatbotCloseBtn = document.querySelector(".close-btn");
 
 let userMessage;
 const API_KEY = "";
+const inputInitHeight = chatInput.scrollHeight;
 
 const createChatLi = (message, className) => {
 
   //Chat <li> element is created with passed message and className
   const chatLi = document.createElement("li");
   chatLi.classList.add("chat", className);
-  let chatContent = className === "outgoing" ? `<p>${message}</p>` : `<span class="material-symbols-outlined">smart_toy</span><p>${message}</p>`;
+  let chatContent = className === "outgoing" ? `<p></p>` : `<span class="material-symbols-outlined">smart_toy</span><p></p>`;
   chatLi.innerHTML = chatContent;
+  chatLi.querySelector("p").textContent = message;
   return chatLi;
 }
 
@@ -38,54 +43,44 @@ const generateResponse = (incomingChatLi) => {
   //Send POST request to API, get response
   fetch(API_URL, requestOptions).then(res => res.json()).then(data => {
     messageElement.textContent = data.choices[0].message.content;
-  }).catch(error) => {
-    messageElement.textContent = data.choices[0].message.content;
-  }
+  }).catch((error) => {
+    messageElement.classList.add("error");
+    messageElement.textContent = "Oops! Something went wrong. Please try again.";
+  }).finally(() => chatbox.scrollTo(0, chatbox.scrollHeight));
 }
 
 const handleChat = () => {
   userMessage = chatInput.value.trim();
   if(!userMessage) return;
+  chatInput.value = "";
 
 
   //User's Message is Appended to the Chatbox
   chatbox.appendChild(createChatLi(userMessage, "outgoing"));
+  chatbox.scrollTo(0, chatbox.scrollHeight);
 
   setTimeout(() => {
     //Display "Thinking..." text while waiting for response
     const incomingChatLi = createChatLi("Thinking...", "incoming")
     chatbox.appendChild(incomingChatLi);
+    chatbox.scrollTo(0, chatbox.scrollHeight);
     generateResponse(incomingChatLi);
   }, 600);
 };
 
-=======
-const chatInput = document.querySelector(".chat-input text-area");
+chatInput.addEventListener("input", () => {
+  //Adjust the height of the input textarea based on its content
+  chatInput.style.height = `${inputInitHeight}px`
+  chatInput.style.height = `${chatInput.scrollHeight}px`
+});
+chatInput.addEventListener("keyup", () => {
+  //If Enter key is pressed without Shift key and the window width is greater than 800px, handle the chat
+  if(else.key === "Enter" && !else.shiftkey && window.innerWidth > 800) {
+    else.preventDefault();
+    handleChat();
+  }
+});
 
-const sendChatBtn = document.querySelector(".chat-input span");
-
-const chatBox = document.querySelector("chatbox");
-
-let userMessage;
-
-const createChatLi = (message, className) => {
-
-  //Chat <li> element is created with passed message and className
-  const chatLi = document.createElement("li");
-  chatLi.classList.add("chat", className);
-  let chatContent = className === "outgoing" ? `<p>${message}</p>` : `<span class="material-symbols-outlined">smart_toy</span><p>${message}</p>`;
-  chatLi.innerHTML = chatContent;
-  return chatLi;
-}
-
-const handleChat = () => {
-  userMessage = chatInput.value.trim();
-  if(!userMessage) return;
-
-
-  //User's Message is Appended to the Chatbox
-  chatbox.appendChild(createChatLi(userMessage, "outgoing"));
-}
-
->>>>>>> 222308b0f8e67c019b0a618b8a078eac88bf175b
 sendChatBtn.addEventListener("click", handleChat);
+chatbotCloseBtn.addEventListener("click", () => document.body.classList.remove("show-chatbot"))
+chatbotToggler.addEventListener("click", () => document.body.classList.toggle("show-chatbot"))
