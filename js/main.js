@@ -53,6 +53,7 @@ const handleChat = () => {
   userMessage = chatInput.value.trim();
   if(!userMessage) return;
   chatInput.value = "";
+  chatInput.style.height = `${inputInitHeight}px`;
 
 
   //User's Message is Appended to the Chatbox
@@ -73,10 +74,10 @@ chatInput.addEventListener("input", () => {
   chatInput.style.height = `${inputInitHeight}px`
   chatInput.style.height = `${chatInput.scrollHeight}px`
 });
-chatInput.addEventListener("keyup", () => {
+chatInput.addEventListener("keydown", () => {
   //If Enter key is pressed without Shift key and the window width is greater than 800px, handle the chat
-  if(else.key === "Enter" && !else.shiftkey && window.innerWidth > 800) {
-    else.preventDefault();
+  if(e.key === "Enter" && !e.shiftkey && window.innerWidth > 800) {
+    e.preventDefault();
     handleChat();
   }
 });
